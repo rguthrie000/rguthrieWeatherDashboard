@@ -1,0 +1,103 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1em;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+/* standard yellow pill logo for all rguthrie sites */
+#nameBox {
+    position: relative;
+    width: 250px;
+    height: 100px;
+    padding: 15px;
+    margin: 10px 0 20px 0px;
+    text-align: center;
+    background: yellow;
+    color: black;
+    border-radius: 100px;
+    border: solid 1px black;
+}
+
+/* Today's date and time as a header label */
+#currentDateTime {
+    position: absolute;
+    top: 34px;
+    left: 275px;
+    width: 240px;
+    height: 30px;
+    padding: 7px;
+    margin: 0 0 0 0;
+    text-align: center;
+    background: lightblue;
+    color: black;
+    font-size: 1rem;
+    font-weight: 750;
+    border-radius: 5px;
+    border: solid 1px black;
+}
+
+.weatherIcon {
+  position: absolute;
+    position:absolute;
+    top: 10px;
+    left: 150px;
+    height: 50px;
+    width: 75px;
+    display: inline-block;
+}
+
+#citySel {
+  width: 125px;
+}
+
+#cityBtn {
+  width: 130px;
+}
+
+#storedCities {
+    width: 20em;
+}
+
+.todayCard {
+  position: relative;
+  height: 250px;
+  margin: 0 0 0 20px;
+}
+.weatherIcon {
+    position:absolute;
+    top: 10px;
+    left: 150px;
+    height: 50px;
+    width: 75px;
+    display: inline-block;
+}
+
+#todayCardDesc {
+    top: 10px;
+    left: 225px;
+}
+
+#todayCardUVIcon.lowsun {
+  background-color: green;
+  height: 50px;
+  width: 75px;
+}
+#todayCardUVIcon.highsun {
+  background-color: red;
+  height: 50px;
+  width: 75px;
+}
+
+.card-group {
+  /* border: 1px solid black; */
+  /* border-radius: 10px; */
+}
+
+#dayCard0,#dayCard1,#dayCard2,#dayCard3,#dayCard4 {
+  padding: 10px;
+  width: 150px;
+  background-color: light-blue;
+  border-radius: 10px;
+  border: 1px solid black;
+}
