@@ -24,54 +24,59 @@
         </div>
     </section>
 
+    <!-- this page is a header section (above), followed by one row.
+         the second column of the row has two sub-rows-->
     <div class="container-fluid">
         <div class="row full-height">
-            <div class="col-sm-2">
-                <div class="cityEntry">
-                    <section>
-                        <input type="text" id="citySel" placeholder="city"/>
-                        <button id="queryBtn" class="cityBtn" class="btn" value="query" display="none">New city</button>
-                    </section>
-                    <br>
-                    <section id="storedCities" class="btn-group btn-group-vertical">
-                    </section>
-                </div>
+            <!-- first column of the row is the city dialog and history -->
+            <div class="col-sm-2 cityEntry">
+                <section>
+                    <input type="text" id="citySel" placeholder=" <city> "/>
+                    <button class="queryBtn" value="query" display="none">&#9758</button>
+                </section>
+                <br>
+                <section class="storedCities">
+                    <!-- dynamically populated from the js -->
+                </section>
             </div>
+            <!-- start the second column -->
             <div class="col-sm-10">
+                <!-- first sub-row, the 'todayCard' for current weather -->
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="todayCard">
                             <h3 id="todayCardCity"></h3>
-                            <p id="todayCardTemp"></p>
-                            <div class="weatherIcon">
+                            <h5 id="todayCardTemp"></h5>
+                            <div class="todayCardWeatherIcon">
                                 <img id="todayCardIcon">
                                 <p id="todayCardDesc"></p>
                             </div>
-                            <p id="todayCardDesc"></p>
                             <br>
-                            <p id="todayCardRH"></p>
                             <p id="todayCardWind"></p>
+                            <p id="todayCardRH"></p>
                             <p id="todayCardUV"></p>
-                            <button id="todayCardUVIcon" class="lowSun"></button>
+                            <button class="todayCardUVIcon"></button>
                         </div>    
                     </div>    
                 </div>
+                <!-- second sub-row, the five day forecast, shown as 5 cards -->
                 <div class="row">
+                    <!-- the individual dayCards are populated by the js -->
                     <div class="card-group">
-                        <div class="col-sm-2">
-                            <div id="dayCard0"></div>
+                        <div class="col-sm-2 dayCard dayCard0">
+                            <!-- <div id="dayCard0"></div> -->
                         </div>    
-                        <div class="col-sm-2">
-                            <div id="dayCard1"></div>
+                        <div class="col-sm-2 dayCard dayCard1">
+                            <!-- <div id="dayCard1"></div> -->
                         </div>    
-                        <div class="col-sm-2">
-                            <div id="dayCard2"></div>
+                        <div class="col-sm-2 dayCard dayCard2">
+                            <!-- <div id="dayCard2"></div> -->
                         </div>    
-                        <div class="col-sm-2">
-                            <div id="dayCard3"></div>
+                        <div class="col-sm-2 dayCard dayCard3">
+                            <!-- <div id="dayCard3"></div> -->
                         </div>    
-                        <div class="col-sm-2">
-                            <div id="dayCard4"></div>
+                        <div class="col-sm-2 dayCard dayCard4">
+                            <!-- <div id="dayCard4"></div> -->
                         </div>    
                         <!-- <div class="col-sm-2"> -->
                             <!-- <card id="dayCardBlank"></card> -->

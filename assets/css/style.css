@@ -1,3 +1,12 @@
+/* rguthrie's Weather Dashboard - CSS
+
+see index.html for elements controlled by these rules.
+there are also elements created by the js which have 
+rules here.  
+
+Bootstrap classes have been used for the grid, but 
+most of the elements have no backing CSS influence.
+*/
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 1em;
@@ -7,97 +16,223 @@ body {
 
 /* standard yellow pill logo for all rguthrie sites */
 #nameBox {
-    position: relative;
-    width: 250px;
-    height: 100px;
-    padding: 15px;
-    margin: 10px 0 20px 0px;
-    text-align: center;
-    background: yellow;
-    color: black;
-    border-radius: 100px;
-    border: solid 1px black;
+  position: relative;
+  width: 250px;
+  height: 100px;
+  padding: 15px;
+  margin: 10px 0 20px 0px;
+  text-align: center;
+  background: yellow;
+  color: black;
+  border-radius: 100px;
+  border: solid 1px black;
+  box-shadow: 2px 4px lightgray;
 }
 
 /* Today's date and time as a header label */
 #currentDateTime {
-    position: absolute;
-    top: 34px;
-    left: 275px;
-    width: 240px;
-    height: 30px;
-    padding: 7px;
-    margin: 0 0 0 0;
-    text-align: center;
-    background: lightblue;
-    color: black;
-    font-size: 1rem;
-    font-weight: 750;
-    border-radius: 5px;
-    border: solid 1px black;
-}
-
-.weatherIcon {
   position: absolute;
-    position:absolute;
-    top: 10px;
-    left: 150px;
-    height: 50px;
-    width: 75px;
-    display: inline-block;
+  top: 34px;
+  left: 275px;
+  width: 320px;
+  height: 30px;
+  padding: 7px;
+  margin: 0 0 0 0;
+  text-align: center;
+  background: lightblue;
+  color: black;
+  font-size: 1rem;
+  font-weight: 750;
+  border-radius: 5px;
+  border: solid 1px black;
 }
 
+/* the new city entry box */
 #citySel {
-  width: 125px;
+  height: 30px;
+  width: 140px;
+  font-size: 1.2em;
+  border: 1px solid black;
+  border-radius: 1px;
 }
 
-#cityBtn {
-  width: 130px;
+/* and its 'go' button */
+.queryBtn {
+  height: 30px;
+  background-color: white;
+}
+.queryBtn:hover {
+  width: 35px;
+  background-color: lightgray;
 }
 
+/* the history list.  these buttons are all created by the js */
+.cityBtn {
+  height: 20px;
+  width: 140px;
+  margin: 5px 0 0 0;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 1px;
+}
+.cityBtn:hover {
+  width: 140px;
+  background-color: lightgray;
+}
+
+/* each entry in the history list has an accompanying delete button */
+.delBtn {
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  background-color: white;
+}
+.delBtn:hover {
+  width: 35px;
+  background-color: lightgray;
+}
+
+/*
 #storedCities {
-    width: 20em;
+  min-width: 100em;
 }
+*/
 
+/* the current weather card; note relative positioning */
 .todayCard {
   position: relative;
-  height: 250px;
-  margin: 0 0 0 20px;
+  height: 200px;
+  width: 700px;
+  margin: 0 0 20px 20px;
+  padding: 10px 0 0 20px;
 }
-.weatherIcon {
-    position:absolute;
-    top: 10px;
-    left: 150px;
-    height: 50px;
-    width: 75px;
-    display: inline-block;
+
+/* these sub-elements are position:absolute to allow exact placement */
+.todayCardWeatherIcon {
+  position:absolute;
+  top: 70px;
+  left: 180px;
+  height: 60px;
+  width: 60px;
+  border: 1px solid black;
+  border-radius: 2px;
+  box-shadow: 2px 4px lightgray;
 }
 
 #todayCardDesc {
-    top: 10px;
-    left: 225px;
+  position:absolute;
+  top: 5px;
+  left: 70px;
 }
 
-#todayCardUVIcon.lowsun {
-  background-color: green;
-  height: 50px;
-  width: 75px;
+.todayCardUVIcon {
+  position: absolute;
+  top: 160px;
+  left: 100px;
+  height: 30px;
+  width:  50px;
+  font-weight: 750;
+  border: 1px solid black;
+  border-radius: 2px;
+  box-shadow: 2px 4px lightgray;
 }
-#todayCardUVIcon.highsun {
+
+.todayCardUVIcon.noSun {
+  background-color: lightgreen;
+}
+.todayCardUVIcon.lowSun {
+  background-color: tan;
+}
+.todayCardUVIcon.highSun {
   background-color: red;
-  height: 50px;
-  width: 75px;
 }
 
-.card-group {
-  /* border: 1px solid black; */
-  /* border-radius: 10px; */
-}
-
-#dayCard0,#dayCard1,#dayCard2,#dayCard3,#dayCard4 {
+/* similar philosophy for the dayCards used for the 5-day forecast */
+.dayCard {
+  position: relative;
   padding: 10px;
-  width: 150px;
-  background-color: light-blue;
+  width: 210px;
+  height: 200px;
+  margin: 0 0 0 5px;
+  font-size: 0.9rem;
+  font-weight: 750;
+  background-color: skyblue;
   border-radius: 10px;
   border: 1px solid black;
+  box-shadow: 2px 4px lightgray;
+}
+
+.dayCardDate {
+  position: absolute;
+  top: 5px;
+  width: 90%;
+  height: 20px;
+  padding: 2px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 750;
+  color: white;
+  background-color: blue;
+  border-radius: 5px;
+}
+
+.dayCardIcon {
+  position: absolute;
+  top: 35px;
+  left: 63px;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 2px 4px lightgray;
+}
+
+.dayCardRH {
+  position: absolute;
+  top: 100px;
+  left: 10px;
+}
+
+/* note the .right attribute below, which allows the 
+temperature to be staggered to achieve the relationship
+between time of day of occurrence of low and high temperatures */
+.dayCardHighTemp {
+  position: absolute;
+  top: 130px;
+  left: 10px;
+  width: 100px;
+  height: 20px;
+  text-align: center;
+  padding: 2px;
+  color: white;
+  background-color: gray;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.dayCardHighTemp.right {
+  left: 60px;
+}
+
+.dayCardArrow {
+  position: absolute;
+  font-weight: 1000;
+  top: 150px;
+  left: 50px;
+}
+
+.dayCardLowTemp {
+  position: absolute;
+  top: 170px;
+  left: 10px;
+  width: 100px;
+  height: 20px;
+  text-align: center;
+  padding: 2px;
+  color: white;
+  background-color: gray;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.dayCardLowTemp.right {
+  left: 60px;
 }
