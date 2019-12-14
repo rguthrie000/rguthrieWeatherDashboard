@@ -9,7 +9,7 @@
 $(document).ready(function(){
 
 // single 'switch' to enable copious console.log() calls
-const debug = true;
+const debug = false;
 
 // buffering for full set of data used from OpenWeather.org
 var weatherObj = 
@@ -267,6 +267,9 @@ function makeLocalTime(UTC,tzDelta)
 // UV index), and forecast weather for a selected city.
 function getWeather(cityName,cityIndexWL)
 {
+  var ajaxDebug = false;
+  var localDebug = false;
+
   // some handy special characters for use down the road
   const degStr       = String.fromCharCode(8457);
   const SEArrowStr   = String.fromCharCode(8600);
@@ -292,9 +295,6 @@ function getWeather(cityName,cityIndexWL)
   $.ajax({url: currentURL,method: "GET"}).then(
   function(response) 
   {
-    var ajaxDebug = false;
-    var localDebug = false;
-
     if (response)
     {
       if (ajaxDebug) {console.log("current weather"); console.log(response);}
@@ -343,7 +343,8 @@ function getWeather(cityName,cityIndexWL)
     if (response)
     {
       // we make this query just to get the UV Index
-      if (debug) {console.log("UV Index"); console.log(response);}
+      if (ajaxDebug) {console.log("UV Index"); console.log(response);}
+
       weatherObj.uvScore = Math.round(10*response.value)/10;
       var uScore = weatherObj.uvScore;
       $("#todayCardUV").text("UV Index: ");
