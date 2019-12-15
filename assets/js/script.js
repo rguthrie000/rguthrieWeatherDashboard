@@ -8,8 +8,13 @@
 // wait for all resources!
 $(document).ready(function(){
 
-// single 'switch' to enable copious console.log() calls
-const debug = false;
+//***************
+//*   Globals   *  
+//***************
+
+// switches to enable copious console.log() calls
+const debug     = false;
+const ajaxDebug = false;
 
 // buffering for full set of data used from OpenWeather.org
 var weatherObj = 
@@ -44,6 +49,10 @@ var cityList =
     lastDisplayedCode: "",
     cities: []
 }
+
+//*****************
+//*   Functions   *  
+//*****************
 
 // clock() services the Interval timer to give current time and date.  Note use
 // of moment.js for date/time string.
@@ -203,73 +212,11 @@ function btnService(event)
   }
  }
 
-// makeLocalTime() uses the javascript Date and toUTCString() functions
-// to provide elements of date and time, as listed here for var
-// dateAndTime.
-var dateAndTime =
-{
-  year           : "",
-  month          : "",
-  monthName      : "",
-  monthNameShort : "",
-  dayOfMonth     : "",
-  dayOfWeek      : "",
-  hour           : "",
-  minute         : "",
-  second         : ""
-}
-function makeLocalTime(UTC,tzDelta)
-{
-  var dateTime = {};  // output buffer
-  var dateObj = new Date(1000 * (UTC+tzDelta)); // Javascript toUTCString() method can be
-  var tString = dateObj.toUTCString();          // given a UTC-compliant time in milliseconds
-                                                // and will produce a string like this: 
-                                                // "Fri, 13 Dec 2019 07:00:00 GMT"
-  var tArr = tString.split(" "); // which we break apart at the spaces
-  dateTime.year = tArr[3];
-  dateTime.monthNameShort = tArr[2];
-  switch (tArr[2])
-  {
-    case "Jan": dateTime.month =  1; dateTime.monthName =   "January"; break;
-    case "Feb": dateTime.month =  2; dateTime.monthName =  "February"; break;
-    case "Mar": dateTime.month =  3; dateTime.monthName =     "March"; break;
-    case "Apr": dateTime.month =  4; dateTime.monthName =     "April"; break;
-    case "May": dateTime.month =  5; dateTime.monthName =       "May"; break;
-    case "Jun": dateTime.month =  6; dateTime.monthName =      "June"; break;
-    case "Jul": dateTime.month =  7; dateTime.monthName =      "July"; break;
-    case "Aug": dateTime.month =  8; dateTime.monthName =    "August"; break;
-    case "Sep": dateTime.month =  9; dateTime.monthName = "September"; break;
-    case "Oct": dateTime.month = 10; dateTime.monthName =   "October"; break;
-    case "Nov": dateTime.month = 11; dateTime.monthName =  "November"; break;
-    case "Dec": dateTime.month = 12; dateTime.monthName =  "December"; break;
-  }
-  dateTime.dayOfMonth = tArr[1];
-  switch (tArr[0])
-  {
-    case "Mon,": dateTime.dayOfWeek =    "Monday"; break;
-    case "Tue,": dateTime.dayOfWeek =   "Tuesday"; break;
-    case "Wed,": dateTime.dayOfWeek = "Wednesday"; break;
-    case "Thu,": dateTime.dayOfWeek =  "Thursday"; break;
-    case "Fri,": dateTime.dayOfWeek =    "Friday"; break;
-    case "Sat,": dateTime.dayOfWeek =  "Saturday"; break;
-    case "Sun,": dateTime.dayOfWeek =    "Sunday"; break;
-  }
-  var todArr = tArr[4].split(":");  
-  dateTime.hour   = todArr[0];
-  dateTime.minute = todArr[1];
-  dateTime.second = todArr[2];
-  return(dateTime);
-}
-
-
 // getWeather() makes multiple AJAX queries to OpenWeather
 // for current weather (including an independent query for 
 // UV index), and forecast weather for a selected city.
 function getWeather(cityName,cityIndexWL)
 {
-  var ajaxDebug = false;
-  var localDebug = false;
-
   // some handy special characters for use down the road
   const degStr       = String.fromCharCode(8457);
   const SEArrowStr   = String.fromCharCode(8600);
@@ -281,8 +228,7 @@ function getWeather(cityName,cityIndexWL)
   // our query strings are assembled here.
   var baseURL        = "https://api.openweathermap.org/data/2.5/";
   var openWeatherKey = "35a41f79e853928d773cad1da927b1b4";
-  var johnnyDsKey    = "3be2b2b6acc21e3760901d15acf91f72";
-  var appId          = "&appid="+johnnyDsKey;
+  var appId          = "&appid="+openWeatherKey;
   var units          = "&units=imperial"
   var currentW       = "weather?q=";
   var forecastW      = "forecast?q=";
@@ -379,22 +325,22 @@ function getWeather(cityName,cityIndexWL)
       // our starting day is taken from the current weather request.
       var currentForecastDayOfMonth = dtObj.dayOfMonth;
 
-      if (localDebug) {console.log("dayOfMonth in current forecast: " + currentForecastDayOfMonth);}
+      if (debug) {console.log("dayOfMonth in current forecast: " + currentForecastDayOfMonth);}
 
       // using a 'while()' to emphasize the persistence of recordIndex
       var recordIndex = 0;
       do
       {
         dtObj = makeLocalTime(response.list[recordIndex].dt, weatherObj.timezone);
-        if (localDebug) {console.log("looking for tomorrow, found "+dtObj.dayOfMonth+", "+dtObj.hour);}
+        if (debug) {console.log("looking for tomorrow, found "+dtObj.dayOfMonth+", "+dtObj.hour);}
       }
       while (recordIndex++ < 40 && dtObj.dayOfMonth == currentForecastDayOfMonth)
 
       // note that the loop structure causes causes recordIndex to be high by one
-      // run with localDebug turned on to see for yourself...
+      // run with debug turned on to see for yourself...
       recordIndex--;
 
-      if (localDebug) {console.log("first record on new day: "+recordIndex);}
+      if (debug) {console.log("first record on new day: "+recordIndex);}
 
       // recordIndex will be < 8 unless the data is fouled.
       if (recordIndex < 8)
@@ -418,7 +364,7 @@ function getWeather(cityName,cityIndexWL)
           // oh, BTW, we're ready to write our first record of this day -- the date
           dtObj = makeLocalTime(response.list[recordIndex].dt, weatherObj.timezone);
           var dateStr = dtObj.dayOfWeek+", "+dtObj.dayOfMonth+" "+dtObj.monthNameShort;
-          if (localDebug) {console.log(dateStr);}
+          if (debug) {console.log(dateStr);}
 
           weatherObj.forecastDates[forecastDay] = dateStr;
 
@@ -429,7 +375,7 @@ function getWeather(cityName,cityIndexWL)
             // are forecast to occur.
             dtObj = makeLocalTime(response.list[recordIndex].dt, weatherObj.timezone);
             var hr = dtObj.hour;
-            if (localDebug) {console.log("by record: recordIndex "+recordIndex+", dayOfMonth "+
+            if (debug) {console.log("by record: recordIndex "+recordIndex+", dayOfMonth "+
               dtObj.dayOfMonth+", hour "+hr)}
             // minima and maxima checks.    
             temp = response.list[recordIndex].main.temp;
@@ -518,6 +464,68 @@ function getWeather(cityName,cityIndexWL)
 
   if (ajaxDebug) {console.log("weatherObj: "); console.log(weatherObj);}
 }    
+
+// makeLocalTime() uses the javascript Date and toUTCString() functions
+// to provide elements of date and time, as listed here for var
+// dateAndTime.
+var dateAndTime =
+{
+  year           : "",
+  month          : "",
+  monthName      : "",
+  monthNameShort : "",
+  dayOfMonth     : "",
+  dayOfWeek      : "",
+  hour           : "",
+  minute         : "",
+  second         : ""
+}
+function makeLocalTime(UTC,tzDelta)
+{
+  var dateTime = {};  // output buffer
+  var dateObj = new Date(1000 * (UTC+tzDelta)); // Javascript toUTCString() method can be
+  var tString = dateObj.toUTCString();          // given a UTC-compliant time in milliseconds
+                                                // and will produce a string like this: 
+                                                // "Fri, 13 Dec 2019 07:00:00 GMT"
+  var tArr = tString.split(" "); // which we break apart at the spaces
+  dateTime.year = tArr[3];
+  dateTime.monthNameShort = tArr[2];
+  switch (tArr[2])
+  {
+    case "Jan": dateTime.month =  1; dateTime.monthName =   "January"; break;
+    case "Feb": dateTime.month =  2; dateTime.monthName =  "February"; break;
+    case "Mar": dateTime.month =  3; dateTime.monthName =     "March"; break;
+    case "Apr": dateTime.month =  4; dateTime.monthName =     "April"; break;
+    case "May": dateTime.month =  5; dateTime.monthName =       "May"; break;
+    case "Jun": dateTime.month =  6; dateTime.monthName =      "June"; break;
+    case "Jul": dateTime.month =  7; dateTime.monthName =      "July"; break;
+    case "Aug": dateTime.month =  8; dateTime.monthName =    "August"; break;
+    case "Sep": dateTime.month =  9; dateTime.monthName = "September"; break;
+    case "Oct": dateTime.month = 10; dateTime.monthName =   "October"; break;
+    case "Nov": dateTime.month = 11; dateTime.monthName =  "November"; break;
+    case "Dec": dateTime.month = 12; dateTime.monthName =  "December"; break;
+  }
+  dateTime.dayOfMonth = tArr[1];
+  switch (tArr[0])
+  {
+    case "Mon,": dateTime.dayOfWeek =    "Monday"; break;
+    case "Tue,": dateTime.dayOfWeek =   "Tuesday"; break;
+    case "Wed,": dateTime.dayOfWeek = "Wednesday"; break;
+    case "Thu,": dateTime.dayOfWeek =  "Thursday"; break;
+    case "Fri,": dateTime.dayOfWeek =    "Friday"; break;
+    case "Sat,": dateTime.dayOfWeek =  "Saturday"; break;
+    case "Sun,": dateTime.dayOfWeek =    "Sunday"; break;
+  }
+  var todArr = tArr[4].split(":");  
+  dateTime.hour   = todArr[0];
+  dateTime.minute = todArr[1];
+  dateTime.second = todArr[2];
+  return(dateTime);
+}
+
+//***************
+//*   StartUp   *  
+//***************
 
 // Welcome!  here's the startup.
 
