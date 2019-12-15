@@ -279,9 +279,10 @@ function getWeather(cityName,cityIndexWL)
   // ok, let's get some weather info!
 
   // our query strings are assembled here.
-  var baseURL        = "http://api.openweathermap.org/data/2.5/";
+  var baseURL        = "https://api.openweathermap.org/data/2.5/";
   var openWeatherKey = "35a41f79e853928d773cad1da927b1b4";
-  var appId          = "&appid="+openWeatherKey;
+  var johnnyDsKey    = "3be2b2b6acc21e3760901d15acf91f72";
+  var appId          = "&appid="+johnnyDsKey;
   var units          = "&units=imperial"
   var currentW       = "weather?q=";
   var forecastW      = "forecast?q=";
@@ -327,7 +328,7 @@ function getWeather(cityName,cityIndexWL)
       // that was a load.  let's get some content on the page.
       $("#todayCardCity").text(cityName.toUpperCase() +", local time: "+localTime);
       $("#todayCardTemp").text(weatherObj.temp+degStr);
-      var iconStr = "http://api.openweathermap.org/img/w/"+weatherObj.icon+".png";
+      var iconStr = "https://api.openweathermap.org/img/w/"+weatherObj.icon+".png";
       $("#todayCardIcon").attr("src",iconStr);
       $("#todayCardDesc").text(weatherObj.description);
       $("#todayCardRH").text("Humidity: "+weatherObj.rH+"%");
@@ -469,7 +470,7 @@ function getWeather(cityName,cityIndexWL)
 
           // note the mapping to the icons at OpenWeather
           var newImg=$("<img>");
-          var iconStr = "http://api.openweathermap.org/img/w/"+weatherObj.forecastIcons[forecastDay]+".png";
+          var iconStr = "https://api.openweathermap.org/img/w/"+weatherObj.forecastIcons[forecastDay]+".png";
           newImg.attr("src",iconStr).addClass("dayCardIcon"); 
           newImg.appendTo(dayId);
 
